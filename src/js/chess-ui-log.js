@@ -6,7 +6,9 @@
  */
 (function ()
 {
-	var ev,
+	/*
+	 * Module definitions.
+	 */
 
 	var namespace = "com.example.chess-ui-log",
 
@@ -45,7 +47,10 @@
 					(captures ? " capturing " : ""));
 		},
 
-		onCheckmate = logEvent,
+		onCheckmate = function (ev)
+		{
+			throw "Not implemented";
+		},
 
 		onMessage = function (ev)
 		{
@@ -64,6 +69,10 @@
 			}
 		};
 
+
+	/*
+	 * Module initialization.
+	 */
 
 	// Listen to messages
 	window.addEventListener("message", onMessage, false);
