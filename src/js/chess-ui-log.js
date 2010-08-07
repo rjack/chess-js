@@ -38,7 +38,12 @@
 					ev.data.players.black + " (black)");
 		},
 
-		onMove = logEvent,
+		onMove = function (ev)
+		{
+			console.log(ev.data.player + " moved "  + ev.data.piece +
+					" from " + ev.data.from + " to " + ev.data.to +
+					(captures ? " capturing " : ""));
+		},
 
 		onCheckmate = logEvent,
 
