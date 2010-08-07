@@ -30,7 +30,13 @@
 			return ev.split(namespace_separator);
 		},
 
-		onStart = logEvent,
+		onStart = function (ev)
+		{
+			console.log("Chess game " + ev.data.game.id +
+					" \"" + ev.data.game.name + "\" started: " +
+					ev.data.players.white + " (white) vs " +
+					ev.data.players.black + " (black)");
+		},
 
 		onMove = logEvent,
 
