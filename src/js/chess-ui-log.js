@@ -8,20 +8,26 @@
 {
 	var ev,
 
-		namespace = "com.example.chess-ui-log",
+	var namespace = "com.example.chess-ui-log",
 
+		namespace_separator = ":",
+
+		/*
+		 * >> namespaced("foo")
+		 * "com.example.chess-ui-log:foo"
+		 */
 		namespaced = function (event_type)
 		{
-			return namespace + event_type;
+			return namespace + namespace_separator + event_type;
 		},
 
-		logEvent = function (ev)
+		/*
+		 * >> denamespace("com.example.chess-ui-log:foo")
+		 * [ "com.example.chess-ui-log", "foo" ]
+		 */
+		denamespace = function (ev)
 		{
-			if (console && console.log) {
-				console.log(ev);
-			} else {
-				alert(ev);
-			}
+			return ev.split(namespace_separator);
 		},
 
 		onStart = logEvent,
