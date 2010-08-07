@@ -69,5 +69,5 @@
 	window.addEventListener("message", onMessage, false);
 
 	// Tell we're ready
-	window.postMessage(namespaced("ready"), window.location);
+	window.postMessage({type: namespaced("ready")}, window.location);
 }());
