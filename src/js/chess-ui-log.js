@@ -38,7 +38,7 @@
 
 		onMessage = function (ev)
 		{
-			var chunks = ev.data.type.split(":"),
+			var chunks = denamespace(ev.data.type),
 				ns = chunks[0],
 				type = chunks[1];
 
