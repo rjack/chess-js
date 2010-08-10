@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Javascript Chess Mashup</title>
+	</head>
+
+	<body>
+		<iframe id="engine" src="http://chess-engine.com/src/chess-engine.html">
+		</iframe>
+		<iframe id="ui" src="http://chess-ui.com/src/chess-ui.html">
+		</iframe>
+		<script type="application/javascript">
+			(function ()
+			{
+				var engine = document.getElementById("engine").contentWindow,
+					ui = document.getElementById("ui").contentWindow,
+
+					/**
+					 * Allows communications between iframes, forwarding engine
+					 * messages to ui, and ui messages to engine.
+					 */
+					routeMessage = function (ev)
+					{
+						// from engine to ui
+						if (ev.origin === "http://chess-engine.com") {
+							ui.postMessage(ev.data, "http://chess-ui.com");
+						}
+						// from ui to engine
+						else if (ev.origin === "http://chess-ui.com") {
+							engine.postMessage(ev.data, "http://chess-engine.com");
+						}
+					};
+				window.addEventListener("message", routeMessage, false);
+			}());
+		</script>
+	</body>
+</html>
