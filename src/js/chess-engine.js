@@ -34,5 +34,5 @@
 	window.addEventListener("message", onMessage, false);
 
 	// Tell we're ready.
-	parent.postMessage(JSON.stringify({type: "engine:ready"}), "http://chess-mashup.com");
+	parent.postMessage(JSON.stringify({type: "ready"}), "http://chess-mashup.com");
 }());

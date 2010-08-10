@@ -32,6 +32,6 @@
 	// Listen to messages.
 	window.addEventListener("message", onMessage, false);
 
-	// Tell we're ready
-	parent.postMessage(JSON.stringify({type: "ui:ready"}), "http://chess-mashup.com");
+	// Tell we're ready.
+	parent.postMessage(JSON.stringify({type: "ready"}), "http://chess-mashup.com");
 }());
