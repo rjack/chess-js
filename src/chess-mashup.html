@@ -13,8 +13,18 @@
 		<script type="application/javascript">
 			(function ()
 			{
-				var engine = document.getElementById("engine").contentWindow,
-					ui = document.getElementById("ui").contentWindow,
+				var modules = {
+						engine: {
+							ready: false,
+							uri: "http://chess-engine.com",
+							window: document.getElementById("engine").contentWindow
+						},
+						ui: {
+							ready: false,
+							uri: "http://chess-ui.com",
+							window: document.getElementById("ui").contentWindow
+						}
+					},
 
 					/**
 					 * Allows communications between iframes, forwarding engine
@@ -23,15 +33,53 @@
 					routeMessage = function (ev)
 					{
 						// from engine to ui
-						if (ev.origin === "http://chess-engine.com") {
-							ui.postMessage(ev.data, "http://chess-ui.com");
+						if (ev.origin === modules.engine.uri) {
+							modules.ui.window.postMessage(ev.data, modules.ui.uri);
 						}
 						// from ui to engine
-						else if (ev.origin === "http://chess-ui.com") {
-							engine.postMessage(ev.data, "http://chess-engine.com");
+						else if (ev.origin === modules.ui.uri) {
+							modules.engine.window.postMessage(ev.data, modules.engine.uri);
+						}
+					},
+
+					kickstartEngine = function ()
+					{
+						var message = {
+								type: "start"
+							};
+						modules.engine.window.postMessage(JSON.stringify(message),
+								modules.engine.uri);
+					},
+
+					handleReady = function (ev)
+					{
+						var i,
+							all_ready = true;
+
+						for (i in modules) {
+							if (ev.origin === modules[i].uri) {
+								modules[i].ready = true;
+							}
+							all_ready = all_ready && modules[i].ready;
+						}
+						if (all_ready) {
+							kickstartEngine();
+						}
+					},
+
+					handleMessage = function (ev)
+					{
+						var data = JSON.parse(ev.data),
+							type = data.type;
+
+						if (type === "ready") {
+							handleReady(ev);
+						} else {
+							routeMessage(ev);
 						}
 					};
-				window.addEventListener("message", routeMessage, false);
+
+				window.addEventListener("message", handleMessage, false);
 			}());
 		</script>
 	</body>
