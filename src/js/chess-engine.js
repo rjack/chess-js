@@ -10,10 +10,15 @@
 	/*
 	 * Module definitions.
 	 */
-	var log = function (msg)
+	var log = function ()
 		{
-			var console = document.getElementById("console");
+			var i, msg = "",
+				console = document.getElementById("console");
 			if (console) {
+				for (i = 0; i < arguments.length - 1; i++) {
+					msg += arguments[i] + " ";
+				}
+				msg += arguments[i];
 				console.textContent = msg + "\n" + console.textContent;
 			}
 		},
@@ -22,7 +27,7 @@
 			var data = JSON.parse(ev.data),
 				type = data.type || "";
 
-			log(ev.data);
+			log(ev.origin, ev.data);
 		};
 
 
