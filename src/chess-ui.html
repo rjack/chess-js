@@ -12,6 +12,15 @@
 
 	<body>
 		<h1>Chess UI</h1>
+		<canvas id="board" width="100" height="100"></canvas>
+		<fieldset>
+			<legend>Move</legend>
+			<label for="from">From</label>
+			<input name="from" id="from" type="text">
+			<label for="to">to</label>
+			<input name="to" id="to" type="text">
+			<button id="move">move!<button>
+		</fieldset>
 		<pre id="console"></pre>
 		<script type="application/javascript" src="js/chess-ui.js"></script>
 	</body>
