@@ -10,7 +10,9 @@
 	/*
 	 * Module definitions.
 	 */
-	var log = function ()
+	var state = {
+		},
+		log = function ()
 		{
 			var i, msg = "",
 				console = document.getElementById("console");
@@ -22,12 +24,27 @@
 				console.textContent = msg + "\n" + console.textContent;
 			}
 		},
+		handlers = {
+			start: function (ev)
+			{
+				log("start handler");
+			},
+			move: function (ev)
+			{
+				log("move handler");
+			}
+		},
 		onMessage = function (ev)
 		{
 			var data = JSON.parse(ev.data),
 				type = data.type || "";
 
 			log(ev.origin, ev.data);
+			if (typeof handlers[type] === "function") {
+				handlers[type](ev);
+			} else {
+				log("Handler not implemented");
+			}
 		};
 
 
