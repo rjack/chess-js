@@ -9,18 +9,19 @@
 	/*
 	 * Module definitions.
 	 */
-	var	onMessage = function (ev)
+	var log = function (msg)
+		{
+			var console = document.getElementById("console");
+			if (console) {
+				console.textContent = msg + "\n" + console.textContent;
+			}
+		},
+		onMessage = function (ev)
 		{
 			var	data = JSON.parse(ev.data),
 				type = data.type;
 
-			if (type === "start") {
-				alert("chess-ui:start");
-			} else if (type === "move") {
-				alert("chess-ui:move");
-			} else {
-				alert("chess-ui:unknown (" + type + ")");
-			}
+			log(ev.data);
 		};
 
 

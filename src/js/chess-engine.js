@@ -10,18 +10,19 @@
 	/*
 	 * Module definitions.
 	 */
-	var onMessage = function (ev)
+	var log = function (msg)
+		{
+			var console = document.getElementById("console");
+			if (console) {
+				console.textContent = msg + "\n" + console.textContent;
+			}
+		},
+		onMessage = function (ev)
 		{
 			var data = JSON.parse(ev.data),
 				type = data.type || "";
 
-			if (type === "start") {
-				alert("chess-engine:start");
-			} else if (type === "move") {
-				alert("chess-engine:move");
-			} else {
-				alert("chess-engine:unknown (" + type + ")");
-			}
+			log(ev.data);
 		};
 
 
