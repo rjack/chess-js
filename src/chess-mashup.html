@@ -58,15 +58,6 @@
 						}
 					},
 
-					kickstartEngine = function ()
-					{
-						var message = {
-								type: "start"
-							};
-						modules.engine.window.postMessage(JSON.stringify(message),
-								modules.engine.uri);
-					},
-
 					handleReady = function (ev)
 					{
 						var i,
@@ -79,7 +70,9 @@
 							all_ready = all_ready && modules[i].ready;
 						}
 						if (all_ready) {
-							kickstartEngine();
+							for (i in modules) {
+								modules[i].window.postMessage(JSON.stringify({type: "ready"}), modules[i].uri);
+							}
 						}
 					},
 
