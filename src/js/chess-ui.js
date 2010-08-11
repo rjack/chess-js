@@ -26,7 +26,9 @@
 			var i,
 				elems = {
 					"title": null,
-					"game": null
+					"input-title": null,
+					"game": null,
+					"board": null
 				};
 			for (i in elems) {
 				elems[i] = document.getElementById(i);
@@ -38,7 +40,7 @@
 			{
 				var message = {
 					type: "new-game",
-					title: document.getElementById("input-title").value || "Foo game"
+					title: ui["input-title"].value || "Foo game"
 				};
 				parent.postMessage(JSON.stringify(message), "http://chess-mashup.com");
 			}
@@ -79,9 +81,9 @@
 	// Create empty board.
 	(function ()
 	{
-		var i, j, color,
-			tr, td,
-			board = document.getElementById("board");
+		var i, j,
+			color,
+			tr, td;
 
 		for (i = 0; i < 8; i++) {
 			tr = document.createElement("tr");
@@ -95,7 +97,7 @@
 				}
 				td.setAttribute("class", color);
 			}
-			board.appendChild(tr);
+			ui.board.appendChild(tr);
 		}
 	}());
 
