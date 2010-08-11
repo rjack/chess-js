@@ -47,8 +47,23 @@
 		game_handlers = {
 			"update": function (ev, data)
 			{
+				var i, pieces;
+
 				if (data.new_value.title) {
 					ui.title.textContent = data.new_value.title;
+				}
+				if (data.old_value && data.old_value.pieces) {
+					pieces = data.old_value.pieces;
+					for (i = 0; i < pieces.length; i++) {
+						ui.board.childNodes[pieces.pos[0]].childNodes[pieces.pos[1]].textContent = "";
+					}
+				}
+				if (data.new_value.pieces) {
+					pieces = data.new_value.pieces;
+					for (i = 0; i < pieces.length; i++) {
+
+						ui.board.childNodes[pieces[i].pos[0]].childNodes[pieces[i].pos[1]].innerHTML = '<span class="piece ' + pieces[i].color + '">' + pieces[i].name + '</span>';
+					}
 				}
 			}
 		},
