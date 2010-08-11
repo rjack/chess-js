@@ -27,7 +27,6 @@
 				elems = {
 					"title": null,
 					"input-title": null,
-					"game": null,
 					"board": null
 				};
 			for (i in elems) {
