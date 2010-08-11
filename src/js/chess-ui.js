@@ -76,6 +76,29 @@
 	// Listen to UI events.
 	document.getElementById("input-new-game").addEventListener("click", ui_handlers["input-new-game"], false);
 
+	// Create empty board.
+	(function ()
+	{
+		var i, j, color,
+			tr, td,
+			board = document.getElementById("board");
+
+		for (i = 0; i < 8; i++) {
+			tr = document.createElement("tr");
+			for (j = 0; j < 8; j++) {
+				td = document.createElement("td");
+				tr.appendChild(td);
+				if ((i + j) % 2) {
+					color = "black";
+				} else {
+					color = "white";
+				}
+				td.setAttribute("class", color);
+			}
+			board.appendChild(tr);
+		}
+	}());
+
 	// Tell we're ready.
 	parent.postMessage(JSON.stringify({type: "ready"}), "http://chess-mashup.com");
 }());

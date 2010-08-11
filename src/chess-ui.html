@@ -4,8 +4,17 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>Javascript Chess UI</title>
 		<style type="text/css">
-			canvas {
-				border: 1px solid #000;
+			td {
+				height: 40px;
+				width: 40px;
+			}
+
+			td.white {
+				background-color: #ddd;
+			}
+
+			td.black {
+				background-color: #9a4500;
 			}
 		</style>
 	</head>
@@ -15,7 +24,10 @@
 			<h1>Chess UI</h1>
 			<h2 id="title"></h2>
 		</hgroup>
-		<canvas id="board" width="100" height="100"></canvas>
+		<table>
+			<tbody id="board">
+			</tbody>
+		</table>
 		<fieldset>
 			<legend>Start a new game</legend>
 			<label for="input-title">Title</label>
