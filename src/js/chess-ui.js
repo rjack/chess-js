@@ -27,6 +27,9 @@
 				elems = {
 					"title": null,
 					"input-title": null,
+					"input-from": null,
+					"input-to": null,
+					"input-move": null,
 					"board": null
 				};
 			for (i in elems) {
@@ -41,6 +44,19 @@
 					type: "new-game",
 					title: ui["input-title"].value || "Foo game"
 				};
+				parent.postMessage(JSON.stringify(message), "http://chess-mashup.com");
+			},
+			"input-move": function (ev)
+			{
+				var parse = function (n)
+					{
+						return parseInt(n, 10);
+					},
+					message = {
+						type: "move",
+						from: ui["input-from"].value.split("").map(parse),
+						to: ui["input-to"].value.split("").map(parse)
+					};
 				parent.postMessage(JSON.stringify(message), "http://chess-mashup.com");
 			}
 		},
@@ -90,6 +106,7 @@
 
 	// Listen to UI events.
 	document.getElementById("input-new-game").addEventListener("click", ui_handlers["input-new-game"], false);
+	document.getElementById("input-move").addEventListener("click", ui_handlers["input-move"], false);
 
 	// Create empty board.
 	(function ()
